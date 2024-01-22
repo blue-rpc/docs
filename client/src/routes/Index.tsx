@@ -1,9 +1,9 @@
 import Github from "@/assets/icons/Github";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+
 
 const Index = () => {
-
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen text-white ">

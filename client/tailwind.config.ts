@@ -12,8 +12,10 @@ module.exports = {
   prefix: "",
   theme: {
     fontFamily: {
-      'sans': ['Exo', ...defaultTheme.fontFamily.sans],
-      "serif" : defaultTheme.fontFamily.serif
+      ...defaultTheme.fontFamily,
+      'sans': ['Epilogue', ...defaultTheme.fontFamily.sans],
+      "serif" : ["Taviraj",...defaultTheme.fontFamily.serif],
+    
     },
     container: {
       center: true,
@@ -74,8 +76,8 @@ module.exports = {
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        "accordion-down": "accordion-down 0.4s ease-out",
+        "accordion-up": "accordion-up 0.4s ease-out",
       },
     },
   },

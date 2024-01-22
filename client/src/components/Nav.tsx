@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
-    <nav className="flex items-center justify-between w-full p-4 h-[50px] lg:h-[75px] bg-[#0d1117] ">
+    <nav className="flex sticky top-0 left-0 z-50 items-center justify-between w-full p-4 h-[50px] lg:h-[75px] bg-[#0d1117] ">
       <div className="flex items-center space-x-2">
         <img src={exampleImage} alt="Bluerpc Logo" />
         <div className="flex items-center border-b gap-x-2 border-blue-950 text-stone-400">
@@ -17,7 +17,7 @@ const Nav = () => {
         </div>
       </div>
       <div>
-        <Link to={"/documentation"}>
+        <Link to={"/documentation/get-started"}>
           <IconTextDocumentAlt className={"w-6 h-8 text-stone-400 "} />
         </Link>
       </div>

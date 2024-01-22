@@ -1,36 +1,42 @@
+import DocumentationMain from "@/components/documentation/DocumentationMain";
 import Sidebar from "@/components/documentation/Sidebar";
+import { PageLayout, docSection } from "@/constants/documentation";
 import useScreenSize from "@/hooks/useScreenSize";
-import React, { RefObject, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useLoaderData } from 'react-router-dom';
 
-export enum docSection {
-  GetStarted = "get-started",
-  Intro = "introduction",
-  App = "app",
-  Router = "router",
-  Procedures = "procedures",
-  Context = "context",
-  ClientSide = "client-side-integration",
-}
+
+const allowedSlugs = Object.values(docSection); // Array of allowed slugs
+
 const Index = () => {
+  const navigate = useNavigate();
+
+  const { slug } = useParams() as { slug: docSection }; // Extract slug from URL
+  useEffect(() => {
+    // Check if the slug is valid
+    if (slug && allowedSlugs.includes(slug as docSection)) return;
+    navigate(`/404`);
+  }, []);
+
   const screenSize = useScreenSize();
   const [sidebarVisible, toggleSidebar] = useState(screenSize.width > 1024);
-  const [currentDocSection, setCurrentDocSection] = useState<docSection>(
-    docSection.GetStarted
-  );
+  const layout = useLoaderData() as PageLayout;
 
-  const [refs, setRefs] = useState<Record<string, RefObject<HTMLDivElement>>>(
-    {}
-  );
+  // useEffect(() => {
+  //   console.log("layout", layout);
+    
+  // }, [layout])
+  
   return (
-    <>
-      <Sidebar
-        refs={refs}
-        setCurrentDocSection={setCurrentDocSection}
-        sidebarVisibility={sidebarVisible}
-      />
-      <div className="w-full h-full"></div>
-    </>
+    <div className="flex relative">
+      <Sidebar sidebarVisibility={sidebarVisible} toggleSidebar={toggleSidebar} />
+      <div className={`${sidebarVisible ? "" : " -translate-x-[300px]"  } ml-[50px] transition-all duration-300`}>
+      <DocumentationMain  layout={layout} slug={slug} />
+      </div>
+    </div>
   );
 };
 
 export default Index;
+
