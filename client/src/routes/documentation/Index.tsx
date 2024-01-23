@@ -4,8 +4,9 @@ import { PageLayout, docSection } from "@/constants/documentation";
 import useScreenSize from "@/hooks/useScreenSize";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useLoaderData } from 'react-router-dom';
-
+import { useLoaderData } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { getSlugLabel } from "@/lib/documentation";
 
 const allowedSlugs = Object.values(docSection); // Array of allowed slugs
 
@@ -25,18 +26,35 @@ const Index = () => {
 
   // useEffect(() => {
   //   console.log("layout", layout);
-    
+
   // }, [layout])
-  
+
   return (
     <div className="flex relative">
-      <Sidebar sidebarVisibility={sidebarVisible} toggleSidebar={toggleSidebar} />
-      <div className={`${sidebarVisible ? "" : " -translate-x-[300px]"  } ml-[50px] transition-all duration-300`}>
-      <DocumentationMain  layout={layout} slug={slug} />
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`BlueRPC :${getSlugLabel(slug)} `}</title>
+        <meta
+          name="description"
+          content={`BlueRPC docs : ${getSlugLabel(slug)} section`}
+        />
+      </Helmet>
+
+      <Sidebar
+        sidebarVisibility={sidebarVisible}
+        toggleSidebar={toggleSidebar}
+      />
+      <div
+        className={`${
+          sidebarVisible
+            ? "lg:translate-x-[300px] brightness-50 lg:brightness-100 "
+            : " brightness-100"
+        } filter ml-[50px] transition-all duration-300`}
+      >
+        <DocumentationMain layout={layout} slug={slug} />
       </div>
     </div>
   );
 };
 
 export default Index;
-

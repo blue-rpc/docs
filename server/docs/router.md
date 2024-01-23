@@ -1,3 +1,4 @@
+# Router
 Routers allow you to group procedures under a single prefix. For example all procedures attached to the router at /users will act upon requests coming to /users/…
 
 

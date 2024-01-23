@@ -1,3 +1,4 @@
+# Procedures
 Procedures are simply functions that are exposed to a client. 
 
 They can be:
@@ -20,8 +21,8 @@ New query takes in 2 generic arguments
 These 2 generic arguments are essential for the subsequent validation and typescript generation 
 
 The query should either be “any” or a struct
-The output can be of any type depending on your needs. Leave it at your own risk on ‘any’ if you do not care what the resulting response body will look like.
-If the query argument is “any” that means that you do not care about the query parameters that the users will send.
+The output can be of any type depending on your needs.
+If the query / output argument is “any” that means that you do not care about the query parameters that the users will send.
 
 <important>
 The order that you pass in your generic arguments does matter. The first argument should always be for query parameters and the second one should always be the output. In the case of mutations, the first argument is for the query, the second one is for the input and the third is for the output
@@ -29,8 +30,6 @@ The order that you pass in your generic arguments does matter. The first argumen
 <important>
 Your structs must have their upper-case fields in order for them to be filled / verified properly. 
 </important>
-
-
 
 ``` go
 // WRONG
@@ -49,7 +48,6 @@ If your struct field is named differently than your query field you can use the 
 In the previous example a request with the query parameter of `id` will have its data transformed and placed into your uppercase `Id` struct field.
 
 
-You will then need to pass in your app instance alongside a query function
 A query function will look like this
 
 ```go
@@ -73,8 +71,6 @@ type output struct {
 
 func main() {
    app := bluerpc.New()
-
-
    nameQuery := bluerpc.NewQuery[query_params, output](app, 
    func(ctx *bluerpc.Ctx, query query_params) (*bluerpc.Res[output], error) {
        name, err := getName(query.Id)
@@ -94,7 +90,6 @@ func main() {
 
 ```
 
-
 Here in this example we pass in a query and an output struct as generic arguments. Then we pass in our app instance and out handler function
 
 ### NewMutation()
@@ -103,7 +98,6 @@ func NewMutation[queryParams any, input any, output any](app *App, mutation Muta
 ```
 
 Mutations are used to change things on your server. They take in some sent data. Thus compared to queries they have another field called input. Inputs are the body of the requests
-
 
 They take in a mutation handler which looks like :
 ```go
@@ -147,7 +141,6 @@ func main() {
 }
 ```
 
-
 <important>
 Just like the query tag on your query structs you can put in the `paramName` tag on your inputs and output structs to tell blueRPC to either look for your given key in the inputs and fill in the input field or change the key of that field in the subsequent response
 </important>
@@ -163,8 +156,6 @@ Modifying our mutation example:
 ...
 func main() {
    app := bluerpc.New()
-
-
    validator := validator.New()
    nameMutation := bluerpc.NewMutation[query_params, input, output](app, 
    func(ctx *bluerpc.Ctx, query query_params, input input) (*bluerpc.Res[output], error) {
@@ -186,7 +177,6 @@ func main() {
 
 We pass in a function that looks like
 
-
 ```go
 type validatorFn func(interface{}) error
 ```
@@ -197,7 +187,6 @@ Keep in mind that you can set this validation function in the App config or on a
 <important>
 If your validator function returns an error when run on your output (presumably because the output is invalid) the server will respond with a 500 and will panic using that error. This is to ensure that you do not send any data accidentally to the user
 </important>
-
 
 ## Dynamic Endpoints
 A dynamic endpoint is an endpoint that can handle requests in a flexible manner, often returning customized or variable content based on the input or parameters provided. In contrast to static endpoints they can handle requests from more than just 1 endpoint
@@ -234,8 +223,6 @@ func main() {
 }
 ```
 
-
-
 `userInfoQuery` will handle every route in `/users/` and it will put that end path (called slug) in your query struct just like any other query parameter. 
 
 You should think of it as any other URL query parameter in that you need to put that slug as a field in your query parameter struct in order to access it. We put an `Id` field with the `paramName` of id in order for us to access that variable
@@ -243,7 +230,6 @@ You should think of it as any other URL query parameter in that you need to put 
 <important>
 Only procedures can be a dynamic endpoint
 </important>
-
 
 You can also define nested dynamic routes:
 
@@ -257,7 +243,6 @@ type query_params struct {
 type output struct {
    Message string `message:"name"`
 }
-
 
 func main() {
    app := bluerpc.New()
@@ -290,12 +275,10 @@ func (proc *Procedure[query, input, output]) Validator(fn ValidatorFn) {
 ```
 This sets a particular validation for the given procedure to be run 
 
-
 ### AcceptedContentType()
 ```go
 func (p *Procedure[query, input, output]) AcceptedContentType(contentTypes ...string
 ```
-
 
 This determines what kind of content type a request should have in order for it to be valid
 

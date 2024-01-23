@@ -1,3 +1,4 @@
+# App 
 The app is the central struct of bluerpc. It is where all of your other routes will be created from
 You can create an app with the New() function.
 

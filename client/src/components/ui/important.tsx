@@ -2,7 +2,7 @@ import React from "react";
 
 const Important = ({ text }: { text: string }) => {
   return (
-    <div className=" relative rounded-xl bg-red-900 p-4 max-w-[50%] overflow-hidden">
+    <div className=" relative rounded-xl max-w-[90vw] bg-red-900 p-4 lg:max-w-[50%] overflow-hidden">
       <div className=" p-2 rounded-br-xl text-red-500  bg-red-800 absolute top-0 left-0">
         <p>Important</p>
       </div>

@@ -1,3 +1,5 @@
+# Type Generation
+
 Bluerpc will generate a typescript file with an object that will allow you to do an API call to your backend. Those API calls are based on what inputs and outputs your procedures have and on which path they are attached.
 
 

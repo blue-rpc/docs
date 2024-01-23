@@ -11,19 +11,19 @@ interface layoutProps {
     switch (layoutEl.type) {
       case "h1":
         return (
-          <h1 className="text-4xl  text-cyan-300 pb-4 border-cyan-200 font-serif w-full border-b-[1px]">
+          <h1 id={layoutEl.content.replace(" ", "").replace("(", "").replace(")", "")} className="text-4xl  text-cyan-300 pb-4 border-cyan-200 font-serif w-full border-b-[1px]">
             {layoutEl.content}
           </h1>
         );
       case "h2":
         return (
-          <h2 className="text-3xl   text-cyan-200 font-serif">
+          <h2 id={layoutEl.content.replace(" ", "").replace("(", "").replace(")", "")} className="text-3xl   text-cyan-200 font-serif">
             {layoutEl.content}
           </h2>
         );
       case "h3":
         return (
-          <h3 className="text-2xl font-bold underline   text-cyan-200 font-serif">
+          <h3 id={layoutEl.content.replace(" ", "").replace("(", "").replace(")", "")} className="text-2xl font-bold underline   text-cyan-200 font-serif">
             {layoutEl.content}
           </h3>
         );

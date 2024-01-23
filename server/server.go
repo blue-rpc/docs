@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/blue-rpc/bluerpc"
 	md "github.com/blue-rpc/docs/parseMarkdown"
+	"github.com/blue-rpc/docs/users"
 )
 
 type test_local_query struct {
@@ -14,11 +15,9 @@ type test_output struct {
 }
 
 func main() {
-	// validate := validator.New(validator.WithRequiredStructEnabled())
 
 	app := bluerpc.New(&bluerpc.Config{
-		OutputPath:  "../client/src/API.ts",
-		ServerURL:   "http://localhost",
+		OutputPath:  "./output.ts",
 		CORS_Origin: "*",
 	})
 
@@ -39,6 +38,7 @@ func main() {
 	})
 
 	proc.Attach(app, `/api/documentation/files/:fileName`)
+	users.CreateUserRoute(app)
 	app.Listen(":8080")
 
 }

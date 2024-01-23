@@ -42,7 +42,7 @@
 
 body {
   background-color: #0d1117;
-  background-image: url("../assets/bg.svg");
+  background-image: url("/bg.svg");
   background-repeat: repeat;
   color: white;
   @apply font-sans;

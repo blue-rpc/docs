@@ -15,37 +15,37 @@ const displayedRows: {
   label : string
 }[] = [
   {
-    Icon: <Start className="w-6 h-6 text-orange-400 group-hover:text-orange-200 transition-all duration-300" />,
+    Icon: <Start className="w-4 h-4 text-orange-500 group-hover:text-orange-200 transition-all duration-300" />,
     value :docSection.GetStarted,
     label : "Get Started"
   },
   {
-    Icon: <Tv2 className="w-6 h-6 text-orange-400 group-hover:text-orange-200 transition-all duration-300" />,
+    Icon: <Tv2 className="w-4 h-4 text-orange-500 group-hover:text-orange-200 transition-all duration-300" />,
     value :docSection.App,
     label : "App"
   },
   {
-    Icon: <Router className="w-6 h-6 text-cyan-500 group-hover:text-cyan-300 transition-all duration-300" />,
+    Icon: <Router className="w-4 h-4 text-cyan-600 group-hover:text-cyan-300 transition-all duration-300" />,
     value :docSection.Router,
     label : "Router"
   },
   {
-    Icon: <Phone className="w-6 h-6 text-cyan-500 group-hover:text-cyan-300 transition-all duration-300" />,
+    Icon: <Phone className="w-4 h-4 text-cyan-600 group-hover:text-cyan-300 transition-all duration-300" />,
     value :docSection.Procedures,
     label : "Procedure"
   },
   {
-    Icon: <Brain className="w-6 h-6 text-cyan-500 group-hover:text-cyan-300 transition-all duration-300" />,
+    Icon: <Brain className="w-4 h-4 text-cyan-600 group-hover:text-cyan-300 transition-all duration-300" />,
     value :docSection.Context,
     label : "Context"
   },
   {
-    Icon: <SiTypescript size={24}  className="min-h-[24px] min-w-[24px] text-cyan-500 group-hover:text-cyan-300 transition-all duration-300" />,
+    Icon: <SiTypescript size={16}  className="min-h-[16px] min-w-[16px] text-cyan-600 group-hover:text-cyan-300 transition-all duration-300" />,
     value :docSection.TypeGeneration,
     label : "Type Generation"
   },
   {
-    Icon: <SiJavascript  size={24}  className="min-h-[24px] min-w-[24px] text-cyan-500 group-hover:text-cyan-300 transition-all duration-300" />,
+    Icon: <SiJavascript  size={16}  className="min-h-[16px] min-w-[16px] text-cyan-600 group-hover:text-cyan-300 transition-all duration-300" />,
     value :docSection.ClientSide,
     label : "Client Side Integration"
   },
@@ -79,12 +79,12 @@ const Sidebar = ({
     <animated.section
       style={springs}
       className={
-        "h-full pt-6 shadow-md shadow-stone-900 sticky top-[75px] left-0 min-h-screen pl-6 w-[300px] bg-[#04161A] -translate-y-[50px] lg:-translate-y-[75px] flex flex-col"
+        `h-full pt-6 overflow-visible z-10  fixed left-0 min-h-screen pl-6 w-[300px] border-2 border-black bg-neutral-950  top-[75px] -translate-y-[50px] lg:-translate-y-[75px] flex flex-col`
       }
     >
       <Button
       onClick={()=> toggleSidebar((v)=> !v)}
-      className="absolute bg-transparent border-2 border-cyan-900 transition-all duration-300 hover:border-cyan-200 top-0 right-0 translate-x-[100%]  w-[30px] h-[30px] p-1 rounded-full"
+      className={`absolute  bg-transparent border-2 border-cyan-900 transition-all duration-300 hover:border-cyan-200 top-0 right-0 ${sidebarVisibility ? `translate-x-1/2`: `translate-x-[100%]`}   w-[30px] bg-slate-900 h-[30px] ml-4 lg:ml-0 p-1 rounded-full`}
       >
         <Menu/>
       </Button>
@@ -120,7 +120,7 @@ const Row = ({
       className="flex  justify-start flex-grow-0 w-3/4 text-2xl transition-all duration-300 bg-transparent border-l-2 border-transparent rounded-none group hover:bg-transparent gap-x-4"
     >
       {Icon}
-      <p className="text-xs font-serif transition-all duration-300 text-stone-200 lg:text-lg group-hover:text-cyan-200 "> {label}</p>
+      <p className="text-base font-serif transition-all duration-300 text-stone-100 lg:text-lg group-hover:text-cyan-200 "> {label}</p>
 
     </Button>
   );

@@ -4,7 +4,6 @@ import Layout from "./components/Layout";
 import Documentation from "./routes/documentation/Index"
 import NotFound from "./routes/404"
 import { getPageLayout } from "./lib/fetches";
-import { Toaster } from "@/components/ui/toaster"
 
 
 const router = createBrowserRouter([
@@ -14,6 +13,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
+        
         element: <Homepage />,
       },
       {
@@ -34,12 +34,13 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
+
 function App() {
   return (
-    <>
+
       <RouterProvider router={router} />
-      <Toaster />
-    </>
+
   );
 }
 

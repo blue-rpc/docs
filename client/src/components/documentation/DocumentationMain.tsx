@@ -1,8 +1,7 @@
+import { getAccordions } from "@/constants/createAccordion";
 import { PageLayout, docSection } from "@/constants/documentation";
-import { getSlugLabel } from "@/lib/documentation";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 
-import {  getAccordions } from "@/constants/createAccordion";
 import { Link } from "react-router-dom";
 
 interface props {
@@ -10,25 +9,37 @@ interface props {
   layout: PageLayout;
 }
 const DocumentationMain = ({ slug, layout }: props) => {
-  const slugLabel = useMemo(() => getSlugLabel(slug), [slug]);
   const JSXEs = useMemo(() => getAccordions(layout), [layout]);
+  useEffect(() => {
+    // Get the current hash from the URL (without the #)
+    const hash = window.location.hash.substring(1);
 
+    if (hash) {
+      // Find the element with that ID
+      const element = document.getElementById(hash);
+
+      // If the element exists, scroll to it
+      if (element) {
+        element.scrollIntoView({ behavior: "instant" });
+      }
+    }
+  }, []);
   return (
-    <article className="w-full flex flex-col lg:max-w-[60vw] pb-[10vh]">
-
-      <p className="text-3xl font-serif text-yellow-300">{slugLabel}</p>
+    <article className="w-full flex flex-col lg:max-w-[60vw] pb-[10vh] max-w-[100vw] ">
       <section className="mt-8 ml-1 flex flex-col gap-y-8">
         {JSXEs.map((Element, i) => (
           <Element key={i} />
         ))}
       </section>
-      <Link to={"https://www.github.com"} className="mt-12 text-cyan-400 underline hover:text-cyan-200 transition-all duration-300">
-      Edit this page
+      <Link
+        to={`https://github.com/blue-rpc/docs/edit/master/server/docs/${slug}.md`}
+        className="mt-24 text-lg text-cyan-400 underline hover:text-cyan-200 transition-all duration-300"
+      >
+        Edit this page
       </Link>
     </article>
   );
 };
-
 
 const areEqual = (prevProps: props, nextProps: props) => {
   return (
