@@ -3,6 +3,7 @@ import { getSlugLabel } from "@/lib/documentation";
 import React, { useMemo } from "react";
 
 import {  getAccordions } from "@/constants/createAccordion";
+import { Link } from "react-router-dom";
 
 interface props {
   slug: docSection;
@@ -21,6 +22,9 @@ const DocumentationMain = ({ slug, layout }: props) => {
           <Element key={i} />
         ))}
       </section>
+      <Link to={"https://www.github.com"} className="mt-12 text-cyan-400 underline hover:text-cyan-200 transition-all duration-300">
+      Edit this page
+      </Link>
     </article>
   );
 };
