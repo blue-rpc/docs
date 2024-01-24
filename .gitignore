@@ -4,6 +4,10 @@
 # Dependency directories
 node_modules/
 
+/server/.env
+/server/.env.local
+
+
 # Build artifacts
 client/dist/
 build/
