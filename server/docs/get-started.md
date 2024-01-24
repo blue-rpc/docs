@@ -1,4 +1,3 @@
-![BlueRPC Big Logo](/logo-big.png)
 
 # Why BlueRPC :
 Apps should be as type safe as they can be. Type safety lets you move faster, fix less bugs and be more confident in what you're deploying. 

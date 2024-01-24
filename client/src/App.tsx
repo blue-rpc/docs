@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         element: <Homepage />,
       },
       {
-        path : "/documentation/:slug*",
+        path : "/documentation/:slug/*",
         element : <Documentation/>,
         loader: async ({ params }) => {
           if (!params.slug) return undefined

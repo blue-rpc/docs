@@ -5,16 +5,21 @@ async function rpcCall<T>( apiRoute: string, params?: { query?: any, input?: any
     const json = await res.json()
     return json as T
   }
-const host = "http://localhost:8080";
+const host = "";
 let path = apiRoute;
 if (Object.keys(params.query).length !== 0){
-  path += `?${Object.keys(params.query).map(key => `${key}=${params.query[key]}`).join('&')}`
+   path += `?${Object.keys(params.query).map(key => {
+    if (key.includes('Slug')){
+ return ''
+ }
+ return `${key}=${params.query[key]}`
+  }).join('&')}`
 }
-const url = host + path;
+const url = encodeURI(host + path);
   const res = await fetch(url, {
     body: !params.input || Object.keys(params.input).length === 0 ? undefined : params.input
   })
   const json = await res.json()
   return json as T
 }
-export const rpcAPI ={api:{documentation:{files:{[`fileName`]:{query: async (query:{ fileNameSlug: string,}):Promise<{ structure: Array<{ type?: string, content?: any, id?: string,}>,}>=>{return rpcCall(`/api/documentation/files/${query.fileNameSlug}`,{query})}}}}}}as const;
+export const rpcAPI ={query: async ():Promise<void>=>{return rpcCall(`/`,undefined)},api:{documentation:{files:{[`fileName`]:{query: async (query:{ fileNameSlug: string,}):Promise<{ structure: Array<{ type?: string, content?: any, id?: string,}>,}>=>{return rpcCall(`/api/documentation/files/${query.fileNameSlug}`,{query})}},}}}}as const;

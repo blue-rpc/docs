@@ -2,7 +2,7 @@ import DocumentationMain from "@/components/documentation/DocumentationMain";
 import Sidebar from "@/components/documentation/Sidebar";
 import { PageLayout, docSection } from "@/constants/documentation";
 import useScreenSize from "@/hooks/useScreenSize";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { Helmet } from "react-helmet";

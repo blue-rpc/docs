@@ -9,7 +9,7 @@ const Index = () => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>BlueRPC : Homepage</title>
+        <title>BlueRPC : End-to-End Go-Typescript Type Safety</title>
         <meta
           name="description"
           content="BlueRPC is a golang library that allows you to create type safe routes and in turn generate typescript API calls"

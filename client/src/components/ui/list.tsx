@@ -1,5 +1,4 @@
 import { listContent } from '@/constants/documentation'
-import React from 'react'
 
 const List = ({ title, bulletPoints }: listContent) => {
     return (

@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/blue-rpc/bluerpc"
 	md "github.com/blue-rpc/docs/parseMarkdown"
-	"github.com/blue-rpc/docs/users"
 )
 
 type test_local_query struct {
@@ -15,10 +14,10 @@ type test_output struct {
 }
 
 func main() {
-
 	app := bluerpc.New(&bluerpc.Config{
-		OutputPath:  "./output.ts",
-		CORS_Origin: "*",
+		OutputPath:          "../client/src/API.ts",
+		DisableGenerateTS:   true,
+		DisableInfoPrinting: true,
 	})
 
 	proc := bluerpc.NewQuery[test_local_query, test_output](app, func(ctx *bluerpc.Ctx, query test_local_query) (*bluerpc.Res[test_output], error) {
@@ -38,7 +37,10 @@ func main() {
 	})
 
 	proc.Attach(app, `/api/documentation/files/:fileName`)
-	users.CreateUserRoute(app)
-	app.Listen(":8080")
+
+	app.Static("/", "./dist")
+	if err := app.Listen(":443"); err != nil {
+		panic(err)
+	}
 
 }

@@ -1,5 +1,7 @@
 github.com/algolia/algoliasearch-client-go/v3 v3.31.0 h1:Mh//CgAOquBWvPs84HEZO/6M+1Im6Y7rTa+Yjxl4Mkw=
 github.com/algolia/algoliasearch-client-go/v3 v3.31.0/go.mod h1:i7tLoP7TYDmHX3Q7vkIOL4syVse/k5VJ+k0i8WqFiJk=
+github.com/blue-rpc/bluerpc v0.7.5 h1:XOPsYWMs4VQD19XrWcrmZOy4Fnze5N86cGd33wIFnWQ=
+github.com/blue-rpc/bluerpc v0.7.5/go.mod h1:bYwDi0iuAfcmBPmcC+H7CijfpAXpKx+H0lDakTINbLQ=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/gabriel-vasile/mimetype v1.4.2 h1:w5qFW6JKBz9Y393Y4q372O9A7cUSequkh1Q7OhCmWKU=
