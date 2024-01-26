@@ -16,5 +16,7 @@ export function getSlugLabel(slug: docSection): string {
       return "Client Side Integration";
     case docSection.TypeGeneration:
       return "Type Generation";
+    case docSection.Auth:
+      return "Authentication and Authorization"
   }
 }

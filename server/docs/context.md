@@ -75,11 +75,3 @@ func (c *Ctx) Protocol() string {
 Returns the protocol used in the request . Either “http” or “https”
 
 
-### Attachment()
-```go
-func (c *Ctx) Attachment(filename ...string) {
-```
-Attachment sets the Content-Disposition header to make the response an attachment. If a filename is provided, it includes it in the header.
-
-
-

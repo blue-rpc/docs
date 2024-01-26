@@ -1,25 +1,46 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-async function rpcCall<T>( apiRoute: string, params?: { query?: any, input?: any } ): Promise<T> {
-  if (params === undefined) {
-    const res = await fetch(apiRoute)
-    const json = await res.json()
-    return json as T
+type Method = "GET" | "POST"
+async function rpcCall<T>(
+  apiRoute: string,
+  method: Method,
+  params?: { query?: any; input?: any },
+  headers?: HeadersInit
+): Promise<{ body: T; status: number; headers: Headers }> {
+  const requestOptions: RequestInit = {
+    method: method,
+    headers: headers,
+  };
+  if (params?.input) {
+    requestOptions.body = JSON.stringify(params.input);
   }
 const host = "";
-let path = apiRoute;
-if (Object.keys(params.query).length !== 0){
-   path += `?${Object.keys(params.query).map(key => {
-    if (key.includes('Slug')){
- return ''
- }
- return `${key}=${params.query[key]}`
-  }).join('&')}`
+  let path = apiRoute;
+  if (params?.query && Object.keys(params.query).length !== 0) {
+    path += `?${Object.keys(params.query)
+      .map(key => {
+        if (key.includes('Slug')) {
+          return '';
+        }
+        return `${encodeURIComponent(key)}=${encodeURIComponent(params.query[key])}`;
+      })
+      .join('&')}`;
+  }
+  const url = host + path
+  const res = await fetch(url, requestOptions);
+  const contentType = res.headers.get('content-type');
+  let body: any;
+  if (contentType?.includes('application/json')) {
+    body = await res.json();
+  } else if (contentType?.includes('text')) {
+    body = await res.text();
+  } else {
+    body = await res.blob(); // or arrayBuffer, depending on the expected response
+  }
+
+  return { 
+    body: body as T, 
+    status: res.status, 
+    headers: res.headers 
+  };
 }
-const url = encodeURI(host + path);
-  const res = await fetch(url, {
-    body: !params.input || Object.keys(params.input).length === 0 ? undefined : params.input
-  })
-  const json = await res.json()
-  return json as T
-}
-export const rpcAPI ={query: async ():Promise<void>=>{return rpcCall(`/`,undefined)},api:{documentation:{files:{[`fileName`]:{query: async (query:{ fileNameSlug: string,}):Promise<{ structure: Array<{ type?: string, content?: any, id?: string,}>,}>=>{return rpcCall(`/api/documentation/files/${query.fileNameSlug}`,{query})}},}}}}as const;
+export const rpcAPI ={api:{documentation:{files:{[`fileName`]:{query: async (query:{ fileNameSlug: string,},headers?: HeadersInit,):Promise<{body:{ structure: Array<{ type?: string, content?: any, id?: string,}>,},status: number, headers: Headers}>=>{return rpcCall(`/api/documentation/files/${query.fileNameSlug}`,'GET',{query},headers)}},}}}}as const;

@@ -20,16 +20,20 @@ func main() {
    usersRoute := app.Router("/users")
 
 
-   getName := bluerpc.NewQuery[query, any](app, 
+   nameQuery := bluerpc.NewQuery[query, any](app, 
    func(ctx *bluerpc.Ctx, query query) (*bluerpc.Res[any], error) {
-       userName := getName(query.Id)
+       userName, err := getName(query.Id)
+      if err != nil {
+         return nil, err
+      }
+       
        return &bluerpc.Res[any]{
            Body: fmt.Sprintf("Here is your requested user's name: %s", userName),
        }, nil
    })
 
 
-   getName.Attach(usersRoute, "/name")
+   nameQuery.Attach(usersRoute, "/name")
    app.Listen(":8080")
 }
 ```
@@ -37,6 +41,64 @@ func main() {
 
 
 Here any GET requests on /users/name will be handled by the procedure
+### Authorizer()
+```go
+func (router *Router) Authorizer(a *Authorizer) *Router {
+```
+Changes the Authorization settings for this particular route alongside any attached procedures to it or its nested structures
+
+### PrintInfo()
+```go
+func (r *Router) PrintInfo(){
+```
+Very similar to the same method in App().
+It displays the info of the procedures and the routes attached to this route
+
+For example 
+```go
+
+
+type test_local_query struct {
+	Id string `paramName:"id" validate:"required"`
+
+}
+
+type test_output struct {
+	FieldOneOut   string   `paramName:"fieldOneOut" validate:"required"`
+}
+
+func TestSomething(t *testing.T) {
+	
+	app := New()
+
+	proc := NewQuery[test_local_query, test_output]([...])
+	test := app.Router("/test")
+
+	proc.Attach(test, `/:id/banana`)
+	test.PrintRoutes()
+	app.Listen(":8080")
+
+}
+```
+
+will print :
+
+```terminal
+_____________________________________________
+ Route : /test 
+        query : /:id/banana ({ id: string,})=>{ fieldOneOut: string,}
+_____________________________________________
+```
+
+<note>
+When executed in the terminal, this function will display colored output, which is not shown in this documentation.
+</note>
+### Protected()
+```go
+func (router *Router) Protected() *Router {
+```
+Sets this route to be protected, meaning the authorization middleware will be called before every procedure attached to this router / any nested routes from it
+
 
 ### Router()
 ```go
@@ -126,52 +188,6 @@ func main() {
 
 }
 ```
-
-### PrintInfo()
-
-```go
-func (r *Router) PrintInfo(){
-```
-Very similar to the same method in App().
-It displays the info of the procedures and the routes attached to this route
-
-For example 
-```go
-
-
-type test_local_query struct {
-	Id string `paramName:"id" validate:"required"`
-
-}
-
-type test_output struct {
-	FieldOneOut   string   `paramName:"fieldOneOut" validate:"required"`
-}
-
-func TestSomething(t *testing.T) {
-	
-	app := New()
-
-	proc := NewQuery[test_local_query, test_output]([...])
-	test := app.Router("/test")
-
-	proc.Attach(test, `/:id/banana`)
-	test.PrintRoutes()
-	app.Listen(":8080")
-
-}
-```
-
-will print :
-
-```terminal
-_____________________________________________
- Route : /test 
-        query : /:id/banana ({ id: string,})=>{ fieldOneOut: string,}
-_____________________________________________
-```
-
-(The text will be colored in your terminal )
 
 ### Validator ()
 ```go

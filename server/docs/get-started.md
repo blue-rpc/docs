@@ -2,19 +2,19 @@
 # Why BlueRPC :
 Apps should be as type safe as they can be. Type safety lets you move faster, fix less bugs and be more confident in what you're deploying. 
 
-Unfortunately there is no easy lightweight solution to connect a golang backend and a typescript frontend safely. Yet trying to remain in a javascript backend environment by using something has serious drawbacks. Otherwise solutions such as GraphQL or gRPC are rather verbose, requiring you to create intermediate files that describe the structure of your endpoints alongside other things.
+Unfortunately there is no easy lightweight solution to connect a golang backend and a typescript frontend safely. Yet remaining in a javascript backend environment has serious drawbacks. Other solutions such as GraphQL or gRPC are rather verbose, requiring you to create intermediate files that describe the structure of your endpoints alongside other things.
 
 BlueRPC is a tRPC inspired backend framework that lets you define a type safe golang server and in turn get a typescript file with everything you need to be able to call that server. It lets you move faster and be more confident that you won't have bugs. 
 
 <note>
-This project is not yet in its stable form. Some small things are still under development. If you would like to help us or ask for features then visit our Github Page.
+This project is in active development. Features and implementations may evolve at a rapid rate. Your contributions are welcome on our GitHub page.
 </note>
 
 
 
 ## Quickstart
 
-You first create a new instance of a blueRPC App
+You first need to create a new instance of a BlueRPC App
 
 ```go
 package main
@@ -33,7 +33,7 @@ func main() {
 Then you need to create a procedure. Procedures can be either Query or Mutation. You attach struct types to these procedures in order to determine what are the acceptable query parameters, input or outputs of them.
 We will create a query in this case. They can have different query parameters and different outputs.
 
-#### Start your struct fields with an upper case so that they can be read by blueRPC. Include the `paramName` tag to say "this field will be named ... in my request query / input or in my output body response"
+#### Start your struct fields with an upper case so that they can be read by BlueRPC. Include the `paramName` tag to say "this field will be named ... in my request query / input or in my output body response"
 
 
 Return a pointer to a Res struct type at the end of your function. The body must be the type of your output.
@@ -53,7 +53,7 @@ Return a pointer to a Res struct type at the end of your function. The body must
     func(ctx *bluerpc.Ctx, query Query_Params) (*bluerpc.Res[Output], error) {
 		return &bluerpc.Res[Output]{
 			Body: Output{
-	            Message: fmt.Sprintf("hello world, here is your id: %s", query.id)
+	            Message: fmt.Sprintf("hello world, here is your id: %s", query.Id)
 			},
 		}, nil
 	})
@@ -99,7 +99,7 @@ go run main.go
 Now do a request on http://localhost:8080/greet?id=123 and you should get
 ```JSON
 {
-  "Message": "hello world, here is your id : 123 "
+  "message": "hello world, here is your id : 123 "
 }
 ```
 
@@ -142,14 +142,16 @@ Now your attached structs to any procedure will be validated your inputs before 
 ## Why not gRPC?
 The main issue with gRPC is that it is very verbose. It requires you to create intermediate files that describe your endpoints in a language other than golang.
 
-Despite both having RPC in their name blueRPC does not have many common things with gRPC. BlueRPC tries to only require you to define your routes once and in golang while taking care of everything else. 
+Although BlueRPC and gRPC share 'RPC' in their names, they are not very similar. BlueRPC tries to only require you to define your routes once and in golang while taking care of everything else. It is also designed to be used for communication between a public client and a server compared gRPC's communication between servers written in different programming languages.
 
 If runtime speed is of the essence or if you will need to call this server from anything else but a javascript environment then you should definitely use gRPC! 
 ## Why not tRPC? 
 
-There are 2 main reasons why :
+There are two main reasons for this :
  - tRPC is slow at runtime, especially if you want to add validation libraries like Zod
  - BlueRPC is in GO ecosystem
 
-Yet there are some advantages that tRPC still has, namely being in the JS ecosystem (if you would prefer that for some reason) and being able to go from the type definitions to the endpoint functions immediately in an IDE
+Yet there are some advantages that tRPC still has. It exists in the JS ecosystem (if you would prefer that for some reason) and it lets you go from the type definitions to the endpoint functions immediately in an IDE. 
+
+If runtime performance is not an issue or if you want to remain in a javascript backend environment you should definitely use tRPC instead.
 

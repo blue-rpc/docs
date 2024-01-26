@@ -2,6 +2,7 @@ export enum docSection {
   GetStarted = "get-started",
   App = "app",
   Router = "router",
+  Auth= "authentication",
   Procedures = "procedures",
   Context = "context",
   ClientSide = "client-side-integration",

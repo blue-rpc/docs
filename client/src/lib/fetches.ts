@@ -10,5 +10,5 @@ export async function getPageLayout (params: string):  Promise<undefined | PageL
     const res = await rpcAPI.api.documentation.files.fileName.query({fileNameSlug: params})
 
     
-    return res.structure as PageLayout
+    return res.body.structure as PageLayout
 }

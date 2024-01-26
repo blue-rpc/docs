@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useSpring, animated, config } from "@react-spring/web";
 import { Button } from "../ui/button";
 import { Start } from "@/assets/icons/ArrowRight";
-import { Router, Menu, Tv2, Phone, Brain } from "lucide-react";
+import { Router, Menu, Tv2, Phone, Brain, Fingerprint } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { docSection } from "@/constants/documentation";
 import { SiTypescript } from "react-icons/si";
@@ -33,6 +33,11 @@ const displayedRows: {
     Icon: <Phone className="w-4 h-4 text-cyan-600 group-hover:text-cyan-300 transition-all duration-300" />,
     value :docSection.Procedures,
     label : "Procedure"
+  },
+  {
+    Icon: <Fingerprint className="w-4 h-4 text-cyan-600 group-hover:text-cyan-300 transition-all duration-300" />,
+    value :docSection.Auth,
+    label : "Authentication"
   },
   {
     Icon: <Brain className="w-4 h-4 text-cyan-600 group-hover:text-cyan-300 transition-all duration-300" />,
@@ -79,7 +84,7 @@ const Sidebar = ({
     <animated.section
       style={springs}
       className={
-        `h-full pt-6 overflow-visible z-10  fixed left-0 min-h-screen pl-6 w-[300px] border-2 border-black bg-neutral-950  top-[75px] -translate-y-[50px] lg:-translate-y-[75px] flex flex-col`
+        `h-full pt-6 overflow-visible z-10  fixed left-0 min-h-screen pl-6 w-[300px] bg-black lg:bg-transparent top-[75px] -translate-y-[50px] lg:-translate-y-[75px] flex flex-col`
       }
     >
       <Button

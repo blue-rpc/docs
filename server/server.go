@@ -14,10 +14,11 @@ type test_output struct {
 }
 
 func main() {
+
 	app := bluerpc.New(&bluerpc.Config{
-		OutputPath:          "../client/src/API.ts",
-		DisableGenerateTS:   true,
-		DisableInfoPrinting: true,
+		DisableGenerateTS:     true,
+		DisableRequestLogging: true,
+		// OutputPath:            "../client/src/API.ts",
 	})
 
 	proc := bluerpc.NewQuery[test_local_query, test_output](app, func(ctx *bluerpc.Ctx, query test_local_query) (*bluerpc.Res[test_output], error) {

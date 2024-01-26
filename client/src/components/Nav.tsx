@@ -100,8 +100,9 @@ function HitsComponent() {
       {hits.slice(0, 4).map((hit) => (
         <div
           key={hit.objectID}
-          className="  p-2 text-white border-b-2 w-full border-stone-800 hover:bg-stone-900 transition-all duration-3001"
+          className="  p-2 text-white border-b-2 w-full border-stone-800 hover:bg-stone-900 transition-all relative duration-3001"
         >
+          <img alt={"Algolia logo"} src={"/Algolia-mark-circle-blue.svg"} width={25} height={25} className="absolute pointer-events-none top-2 right-12" />
           <Link
             onClick={() =>
               setScrolled(

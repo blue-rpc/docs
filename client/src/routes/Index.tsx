@@ -2,7 +2,7 @@ import Github from "@/assets/icons/Github";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import {  SiGo } from "react-icons/si";
-import { TbBrandTypescript } from "react-icons/tb";
+import { TbBrandTypescript, TbStarFilled } from "react-icons/tb";
 
 const Index = () => {
   return (
@@ -20,6 +20,14 @@ const Index = () => {
         <h1 className="mt-4 text-5xl xl:max-w-[40vw] text-cyan-400 mb-[4vh] lg:text-6xl xl:text-7xl text-center leading-tight  ">
           End To End <br></br> Go - Typescript <br></br> Type Safety
         </h1>
+        <Link
+            className="text-center text-yellow-100 hover:text-cyan-200  lg:w-auto lg:text-xl gap-x-2  text-lg border-b-[1px] border-yellow-300  flex items-center justify-center align-middle group hover:border-cyan-200 transition-all duration-300 px-4"
+            to={"https://github.com/blue-rpc/bluerpc"}
+          >
+            <TbStarFilled className="text-yellow-200 group-hover:text-cyan-200 transition-all duration-300" />
+            <p className="group-hover:text-cyan-200 transition-all duration-300">Star us on Github</p>
+            <Github className=" text-yellow-200 group-hover:text-cyan-200 transition-all duration-300" />
+          </Link>
         <div className="flex flex-col items-center my-[4vh] justify-center w-full mb-12 align-middle lg:w-[80vw] lg:flex-row">
           <div className="w-full relative lg:w-full border-r-[1px] border-[#FFD89E] aspect-video  ">
             <div className="absolute flex items-center justify-center align-middle group top-0 left-2 w-6 h-6 rounded-b-lg bg-[#FFD89E]">
@@ -28,7 +36,7 @@ const Index = () => {
                 className="min-h-[20px] min-w-[20px]  text-black transition-all duration-300"
               />
             </div>
-            <img src={"/bluerpc-go-gif-intro.gif"} className="object-fill" />
+            <img  alt={"BlueRPC homepage Golang GIF"} src={"/bluerpc-go-gif-intro.gif"} className="object-fill" />
           </div>
           <MobileConnector className="lg:hidden" />
           <DesktopConnector className="hidden lg:block" />
@@ -39,29 +47,21 @@ const Index = () => {
                 className="min-h-[20px] min-w-[20px]  text-black transition-all duration-300"
               />
             </div>
-            <img src={"/bluerpc-ts-gif-intro.gif"} className="object-fill" />
+            <img alt={"BlueRPC homepage Typescript GIF"} src={"/bluerpc-ts-gif-intro.gif"} className="object-fill" />
           </div>
         </div>
-        <h2 className="max-w-[80%] lg:max-w-[35%] mb-8 text-2xl text-yellow-100 text-center">
+        <h2 className="max-w-[80%] lg:max-w-[35%] text-2xl text-yellow-100 text-center">
           Avoid mistakes and build apps faster by maintaining type safety
-          between golang and typescript
+          between Golang and Typescript
         </h2>
         <div className="flex flex-col mb-4 gap-y-6 mt-[5vh] ">
           <Link
             to={"/documentation/get-started"}
-            className="px-2  text-yellow-100  lg:text-xl text-xl  py-2 hover:bg-cyan-900 transition-all duration-300 text-center font-serif rounded-xl bg-cyan-950 "
+            className="px-2 lg:px-8  text-yellow-100  lg:text-xl text-xl  py-2 hover:bg-cyan-900 transition-all duration-300 text-center font-serif rounded-xl bg-cyan-950 "
           >
             Get Started
           </Link>
 
-          <Link
-            className="text-center text-yellow-100  lg:w-auto lg:text-xl gap-x-[2px] text-lg border-b-[1px] border-cyan-900  flex items-center justify-center align-middle hover:border-cyan-800 px-4"
-            to={"https://github.com/blue-rpc/bluerpc"}
-          >
-            <p className="">Give us a star on Github</p>
-
-            <Github className="mb-1 text-cyan-200" />
-          </Link>
         </div>
       </div>
     </>

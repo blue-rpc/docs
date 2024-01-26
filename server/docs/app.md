@@ -1,5 +1,5 @@
 # App 
-The app is the central struct of bluerpc. It is where all of your other routes will be created from
+The App struct stands at the core of BlueRPC, serving as the foundation for creating all routes.
 You can create an app with the New() function.
 
 ``` go
@@ -19,13 +19,15 @@ This function take a config struct
 ```go
 
 type Config struct {
-	//  The path where you would like the generated Typescript to be placed.
-	// Keep in mind that YOU NEED TO PUT a .ts file at the end of the path
-	// Default is ./output.ts
+
+	//Sets the default authorization settings for the app, including the authorization middleware.
+	Authorizer *Authorizer
+
+	//Specifies the path for the generated TypeScript file. Remember to include a .ts file extension. Default: ./output.ts.
 	OutputPath string
 
-	// Boolean that determines if any typescript types will be generated.
-	// Default is false. Set this to TRUE in production
+	// Boolean that determines if any Typescript types will be generated.
+	// Set to true in production to disable TypeScript generation. Default: false
 	DisableGenerateTS bool
 
 	//The function that will be used to validate your struct fields.
@@ -57,7 +59,6 @@ type Config struct {
 	//The address that your SSL key is located at
 	SSLKey string
 }
-
 ```
 
 
@@ -86,7 +87,7 @@ func (a *App) Listen(port string) error {
 
 ```
 
-This will start your server on your given port. It will also trigger the generation of the typescript file at your given address in the config settings that you've provided when you created App
+This will start your server on your given port. It will also trigger the generation of the Typescript file at your given address in the config settings that you've provided when you created App
 
 ### Use()
 
@@ -140,10 +141,7 @@ func main() {
 }
 ```
 
-
-
-
-By default if you would do a GET request on /someRoute you would get index.html. If you have a file called assets.css in some-folder you could get it by doing a request on ./some-folder/assets.css
+By default if you would do a GET request on /someRoute you would get index.html. If you have a file called assets.css in some-folder you could get it by doing a request on /someRoute/assets.css
 
 ### Test()
 
@@ -213,5 +211,7 @@ _____________________________________________
         query : /:id/banana ({ id: string,})=>{ fieldOneOut: string,}
 _____________________________________________
 ```
+<note>
+When executed in the terminal, this function will display colored output, which is not shown in this documentation.
+</note>
 
-(The text will be colored in your terminal when you call the function compared to our example here in the docs)
