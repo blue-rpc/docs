@@ -9,7 +9,10 @@ node_modules/
 /server/.env.production
 /server/.env.*
 
-
+/client/.env
+/client/.env.local
+/client/.env.production
+/client/.env.*
 
 # Build artifacts
 client/dist/
