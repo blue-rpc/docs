@@ -2,7 +2,7 @@ module github.com/blue-rpc/docs
 
 go 1.21.4
 
-replace github.com/blue-rpc/bluerpc => ../../blueRPC
+// replace github.com/blue-rpc/bluerpc => ../../blueRPC
 
 require (
 	github.com/algolia/algoliasearch-client-go/v3 v3.31.0
